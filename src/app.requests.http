@@ -5,20 +5,19 @@ GET http://localhost:3000/
 
 
 // user module requests 
-GET http://localhost:3000/users
-GET http://localhost:3000/users/221/ghdksdksak?limit=10&offset=20
+GET http://localhost:3000/users/222
+GET http://localhost:3000/users/1/?limit=20&offset=10
+
 
 
 POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "waqas",
-    "email": "waqas@gmail.com",
-    "age": "25",
-    "gender": "male",
-    "country": "Pakistan"
-    
+   "firstName": "waqas",
+   "lastName": "ali",
+   "email": "waqas@gmail.com",
+   "password": "1234569999" 
 }
 
 
