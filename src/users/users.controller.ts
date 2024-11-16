@@ -12,11 +12,14 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/createuser.dto';
 import { CreateUserParamDto } from './dtos/createUserParam.dto';
+import { UserService } from './providers/user.service';
 
 @Controller('users')
 export class UsersController {
+  constructor(private readonly userService: UserService) {}
+
   @Get(':id?/')
-  public getUsers(
+  public getUser(
     @Param() createUserParamDto: CreateUserParamDto,
     @Query('limit', new DefaultValuePipe(1), ParseIntPipe) limit: any,
     @Query('offset', new DefaultValuePipe(10), ParseIntPipe) offset: any,
@@ -29,9 +32,16 @@ export class UsersController {
     console.log('headers are ', headers);
     console.log('your ip is ', ip);
 
-    return (
-      'user returned from users controller and id is  ' + createUserParamDto.id
-    );
+    return this.userService.findAll(createUserParamDto);
+  }
+
+  @Get()
+  public getUsers(
+    @Param() createUserParamDto: CreateUserParamDto,
+    @Query('limit', new DefaultValuePipe(1), ParseIntPipe) limit: any,
+    @Query('offset', new DefaultValuePipe(10), ParseIntPipe) offset: any,
+  ) {
+    return this.userService.findById(createUserParamDto);
   }
 
   @Post()

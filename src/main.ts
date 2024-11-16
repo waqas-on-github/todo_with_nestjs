@@ -8,7 +8,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true, //this will prevent user to posting extra data for melicious purposes
-      transform: true, // request body bydefault is not typesafe and not compatable with
+      transform: true, // request body by default is not typesafe and not compatable with
       //created dto class. So we need to transform the request body to the created dto class
       //for example createUserDto: CreateUserDto this one in users controller
     }),
