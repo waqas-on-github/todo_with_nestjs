@@ -32,7 +32,7 @@ export class UsersController {
     console.log('headers are ', headers);
     console.log('your ip is ', ip);
 
-    return this.userService.findAll(createUserParamDto);
+    return this.userService.findById(createUserParamDto.id);
   }
 
   @Get()
@@ -41,7 +41,7 @@ export class UsersController {
     @Query('limit', new DefaultValuePipe(1), ParseIntPipe) limit: any,
     @Query('offset', new DefaultValuePipe(10), ParseIntPipe) offset: any,
   ) {
-    return this.userService.findById(createUserParamDto);
+    return this.userService.findAll(createUserParamDto);
   }
 
   @Post()
