@@ -7,12 +7,16 @@ import { PostsModule } from './posts/posts.module';
 import { AuthModule } from './auth/auth.module';
 import { User } from './users/user.entity';
 import { Post } from './posts/post.entity';
+import { TagsModule } from './tags/tags.module';
+import { MetaOptionsModule } from './meta-options/meta-options.module';
 
 @Module({
   imports: [
     UsersModule,
     PostsModule,
     AuthModule,
+    TagsModule,
+    MetaOptionsModule,
 
     TypeOrmModule.forRootAsync({
       imports: [],
@@ -26,9 +30,12 @@ import { Post } from './posts/post.entity';
         database: 'nestjs-blog',
         autoLoadEntities: true,
         synchronize: true, // Set this to false in production
-        entities: [User, Post],
       }),
     }),
+
+    TagsModule,
+
+    MetaOptionsModule,
   ],
 
   controllers: [AppController],

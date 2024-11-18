@@ -1,18 +1,14 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { PostType } from './enums/postType.enum';
 import { PostStatus } from './enums/postStatus.enums';
-import { CreatePostMetaOptionsDto } from './dtos/createPostMetaOptions.dto';
+import { CreatePostMetaOptionsDto } from '../meta-options/dtos/createPostMetaOptions.dto';
 
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    type: 'varchar',
-    length: 512,
-    nullable: false,
-  })
+  @Column({ type: 'varchar', length: 512, nullable: false })
   title: string;
 
   @Column({
@@ -23,12 +19,7 @@ export class Post {
   })
   postType: PostType;
 
-  @Column({
-    type: 'varchar',
-    length: 512,
-    unique: true,
-    nullable: false,
-  })
+  @Column({ type: 'varchar', length: 512, unique: true, nullable: false })
   slug: string;
 
   @Column({
@@ -39,29 +30,16 @@ export class Post {
   })
   status: PostStatus;
 
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
+  @Column({ type: 'text', nullable: true })
   content?: string;
 
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
+  @Column({ type: 'text', nullable: true })
   schema: string;
 
-  @Column({
-    type: 'varchar',
-    length: 1024,
-    nullable: true,
-  })
+  @Column({ type: 'varchar', length: 1024, nullable: true })
   featureImageUrl?: string;
 
-  @Column({
-    type: 'timestamp',
-    nullable: true,
-  })
+  @Column({ type: 'timestamp', nullable: true })
   publishOn: Date;
 
   //we will work on next lacture
