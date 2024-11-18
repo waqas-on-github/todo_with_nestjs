@@ -10,7 +10,7 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Get()
-  public getPosts(@Query('userId') userId: string) {
+  public getPosts(@Query('userId') userId: number) {
     return this.postService.findAll(userId);
   }
 

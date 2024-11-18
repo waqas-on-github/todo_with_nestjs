@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreatePostMetaOptions {
+export class CreatePostMetaOptionsDto {
   @IsString()
   @IsNotEmpty()
   key: string;

@@ -1,7 +1,6 @@
 import {
   IsArray,
   IsEnum,
-  isEnum,
   IsISO8601,
   IsJSON,
   IsNotEmpty,
@@ -9,12 +8,14 @@ import {
   IsString,
   IsUrl,
   Matches,
+  maxLength,
+  MaxLength,
   MinLength,
   ValidateNested,
 } from 'class-validator';
 import { PostStatus } from '../enums/postStatus.enums';
 import { PostType } from '../enums/postType.enum';
-import { CreatePostMetaOptions } from './createPostMetaOptions.dto';
+import { CreatePostMetaOptionsDto } from './createPostMetaOptions.dto';
 import { Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -25,6 +26,7 @@ export class CreatePostDto {
   })
   @IsString()
   @IsNotEmpty()
+  @MaxLength(512)
   @MinLength(3)
   title: string;
 
@@ -80,6 +82,7 @@ export class CreatePostDto {
   })
   @IsOptional()
   @IsUrl()
+  @MaxLength(1024)
   featureImageUrl?: string;
 
   @ApiPropertyOptional({
@@ -89,6 +92,7 @@ export class CreatePostDto {
   @IsOptional()
   @IsISO8601()
   publishOn?: Date;
+
   @ApiPropertyOptional({
     description: 'tags of the post',
     example: ['tech', 'javascript', 'nestjs'],
@@ -115,6 +119,6 @@ export class CreatePostDto {
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => CreatePostMetaOptions)
-  metaOptions: CreatePostMetaOptions[];
+  @Type(() => CreatePostMetaOptionsDto)
+  metaOptions: CreatePostMetaOptionsDto[];
 }

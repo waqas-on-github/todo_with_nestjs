@@ -10,7 +10,7 @@ export class AuthService {
   ) {}
   public login(email: string, password: string, id: string) {
     // check if user exists in database
-    const user = this.userService.findById('123');
+    const user = this.userService.findById(123);
     // login
     //token
 
