@@ -5,8 +5,6 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { AuthModule } from './auth/auth.module';
-import { User } from './users/user.entity';
-import { Post } from './posts/post.entity';
 import { TagsModule } from './tags/tags.module';
 import { MetaOptionsModule } from './meta-options/meta-options.module';
 
@@ -32,10 +30,6 @@ import { MetaOptionsModule } from './meta-options/meta-options.module';
         synchronize: true, // Set this to false in production
       }),
     }),
-
-    TagsModule,
-
-    MetaOptionsModule,
   ],
 
   controllers: [AppController],

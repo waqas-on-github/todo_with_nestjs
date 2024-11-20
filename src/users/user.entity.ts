@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-
-
-
-
+import { Post } from 'src/posts/post.entity';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -23,4 +24,8 @@ export class User {
 
   @Column({ type: 'varchar', length: 96, nullable: true })
   password: string;
+
+  // one user can have multiple posts
+  @OneToMany(() => Post, (post) => post.author) // many posts can have only one user
+  posts: Post[];
 }

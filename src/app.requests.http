@@ -1,12 +1,13 @@
-GET http://localhost:3000/
+GET http://localhost:3001/
 
 
 
 
 
 // user module requests 
-GET http://localhost:3000/users/222
-GET http://localhost:3000/users/1/?limit=20&offset=10
+GET http://localhost:3001/users/
+GET http://localhost:3001/users/22
+
 
 
 
@@ -16,24 +17,26 @@ Content-Type: application/json
 {
    "firstName": "waqas",
    "lastName": "ali",
-   "email": "waqas@gmail.com",
+   "email": "waqas@gmsail.com",
    "password": "1234569999" 
 }
 
-POST http://localhost:3000/posts
+POST http://localhost:3001/posts
 Content-Type: application/json
 
 
 {
   "title": "My First Post",
   "postType": "page",
-  "slug": "my-first-postddd",
+  "slug": "my-first-postddddddd",
   "status": "review",
   "content": "This is the content of my first post.",
   "schema": "{\"type\":\"text\",\"content\":\"This is a sample schema\"}",
   "featureImageUrl": "https://example.com/image.jpg",
   "publishOn": "2024-11-20T12:00:00Z",
-  "tags": "tech"
- 
+  "tags": "tech",
+  
+  "authorId":1
+
 }
 

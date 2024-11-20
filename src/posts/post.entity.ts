@@ -1,13 +1,17 @@
 import {
   Column,
   Entity,
-  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PostType } from './enums/postType.enum';
 import { PostStatus } from './enums/postStatus.enums';
 import { MetaOptions } from 'src/meta-options/metaOptions.entity';
+import { User } from 'src/users/user.entity';
+import { Tag } from 'src/tags/tag.entity';
 
 @Entity()
 export class Post {
@@ -55,6 +59,13 @@ export class Post {
   })
   metaOptions: MetaOptions;
 
-  @Column()
-  tags: string;
+  // each post can have only one author be in many side of the one to many
+  // forgen key will reside on many side so here
+  @ManyToOne(() => User, (user) => user.posts) // one user can have many posts
+  author: User;
+
+  // bidirectional many to many relationship
+  @ManyToMany(() => Tag)
+  @JoinTable()
+  tags: Tag[];
 }

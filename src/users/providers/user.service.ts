@@ -1,5 +1,4 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { CreateUserParamDto } from '../dtos/createUserParam.dto';
 import { AuthService } from 'src/auth/providers/auth.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../user.entity';
@@ -20,17 +19,13 @@ export class UserService {
   ) {}
 
   // find all users
-  public findAll(createUserParamDto: CreateUserParamDto) {
-    return this.userRepository.find({
-      take: 10,
-    });
+  public async findAll() {
+    return await this.userRepository.find({ relations: { posts: true } });
   }
 
   // find user by id
-  public findById(userId: number) {
-    const isAuthed = this.authService.isAuth();
-
-    this.userRepository.findOne({
+  public async findById(userId: number) {
+    return await this.userRepository.findOne({
       where: {
         id: userId,
       },
@@ -48,5 +43,10 @@ export class UserService {
     await this.userRepository.save(newUser);
 
     return newUser;
+  }
+
+  // delete all users
+  public async deleteUsers() {
+    return await this.userRepository.delete({});
   }
 }

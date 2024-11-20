@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   ParseIntPipe,
   Patch,
   Post,
@@ -18,9 +19,14 @@ import { PatchPostDto } from './dtos/patchPost.dto';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @Get()
+  public getPosts() {
+    return this.postService.findAll();
+  }
+
   @Get('/:userId?')
-  public getPosts(@Query('userId') userId: number) {
-    return this.postService.findAll(userId);
+  public getPost(@Param('userId', ParseIntPipe) userId: number) {
+    return this.postService.findOnePost(userId);
   }
 
   @ApiOperation({ summary: 'create a new post' })
@@ -37,12 +43,16 @@ export class PostController {
     return 'post updated successfully';
   }
 
-  @ApiOperation({ summary: 'update a post' })
-  @ApiResponse({ status: 200, description: 'Post updated successfully' })
-  @Delete()
-  public deletePost(@Query('id', ParseIntPipe) id: number) {
-    console.log(id, 'id in post controler');
+  // @ApiOperation({ summary: 'update a post' })
+  // @ApiResponse({ status: 200, description: 'Post updated successfully' })
+  // @Delete('/:id?')
+  // public deletePost(@Param('id', ParseIntPipe) id: number) {
+  //   return this.postService.deletePost (id);
+  // }
 
-    return this.postService.deletePost(id);
+  @Delete()
+  public deletePosts() {
+    return this.postService.deletePosts();
   }
 }
+
