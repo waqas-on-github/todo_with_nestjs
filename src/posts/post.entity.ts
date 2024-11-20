@@ -1,7 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { PostType } from './enums/postType.enum';
 import { PostStatus } from './enums/postStatus.enums';
-import { CreatePostMetaOptionsDto } from '../meta-options/dtos/createPostMetaOptions.dto';
+import { MetaOptions } from 'src/meta-options/metaOptions.entity';
 
 @Entity()
 export class Post {
@@ -42,9 +48,13 @@ export class Post {
   @Column({ type: 'timestamp', nullable: true })
   publishOn: Date;
 
-  //we will work on next lacture
+  // one to one relationship with meta option table
+  @OneToOne(() => MetaOptions, (metaoption) => metaoption.post, {
+    cascade: true,
+    eager: true,
+  })
+  metaOptions: MetaOptions;
+
   @Column()
   tags: string;
-  @Column()
-  metaOptions: string;
 }

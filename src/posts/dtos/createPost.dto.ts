@@ -98,27 +98,17 @@ export class CreatePostDto {
     example: ['tech', 'javascript', 'nestjs'],
   })
   @IsOptional()
-  @IsArray()
   @IsString({ each: true })
   @MinLength(3, { each: true })
-  tags?: string[];
+  tags?: string;
 
   @ApiPropertyOptional({
-    description: 'meta options of the post',
-    example: [
-      {
-        key: 'author',
-        value: 'John Doe',
-      },
-      {
-        key: 'readingTime',
-        value: '5 min',
-      },
-    ],
+    type: Object,
+    description: 'meta options is json string ',
+    example: "{'key': 'author', 'value': 'John Doe'}",
   })
   @IsOptional()
-  @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreatePostMetaOptionsDto)
-  metaOptions: CreatePostMetaOptionsDto[];
+  metaOptions: CreatePostMetaOptionsDto | null;
 }

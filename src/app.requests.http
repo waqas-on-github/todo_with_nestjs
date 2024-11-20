@@ -27,22 +27,13 @@ Content-Type: application/json
 {
   "title": "My First Post",
   "postType": "page",
-  "slug": "my-first-post",
+  "slug": "my-first-postddd",
   "status": "review",
   "content": "This is the content of my first post.",
   "schema": "{\"type\":\"text\",\"content\":\"This is a sample schema\"}",
   "featureImageUrl": "https://example.com/image.jpg",
   "publishOn": "2024-11-20T12:00:00Z",
-  "tags": ["tech", "javascript", "nestjs"],
-  "metaOptions": [
-    {
-      "key": "author",
-      "value": "John Doe"
-    },
-    {
-      "key": "readingTime",
-      "value": "5 min"
-    }
-  ]
+  "tags": "tech"
+ 
 }
 
