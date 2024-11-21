@@ -11,13 +11,13 @@ GET http://localhost:3001/users/22
 
 
 
-POST http://localhost:3000/users
+POST http://localhost:3001/users
 Content-Type: application/json
 
 {
    "firstName": "waqas",
    "lastName": "ali",
-   "email": "waqas@gmsail.com",
+   "email": "waqddas@362186318138713sail.com",
    "password": "1234569999" 
 }
 

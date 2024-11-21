@@ -21,7 +21,7 @@ export class PostController {
 
   @Get()
   public getPosts() {
-    return this.postService.findAll();
+    return this.postService.findAllPosts();
   }
 
   @Get('/:userId?')
@@ -40,15 +40,10 @@ export class PostController {
   @ApiResponse({ status: 200, description: 'Post updated successfully' })
   @Patch()
   public updatePost(@Body() patchPostDto: PatchPostDto) {
-    return 'post updated successfully';
+     return this.postService.updateOnePost(patchPostDto);
   }
 
-  // @ApiOperation({ summary: 'update a post' })
-  // @ApiResponse({ status: 200, description: 'Post updated successfully' })
-  // @Delete('/:id?')
-  // public deletePost(@Param('id', ParseIntPipe) id: number) {
-  //   return this.postService.deletePost (id);
-  // }
+
 
   @Delete()
   public deletePosts() {

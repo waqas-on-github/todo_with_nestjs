@@ -18,7 +18,9 @@ export class TagsService {
   }
 
   public async getAllTags() {
-    return this.tagsReposiotry.find();
+    return this.tagsReposiotry.find({
+     
+    });
   }
 
   public async findMultipleTags(tags: number[]) {
@@ -27,5 +29,11 @@ export class TagsService {
     });
 
     return results;
+  }
+
+  public async getSingleTag(id: number) {
+    return await this.tagsReposiotry.findOneBy({
+      id: id,
+    });
   }
 }

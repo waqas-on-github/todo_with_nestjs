@@ -55,7 +55,6 @@ export class Post {
   // one to one relationship with meta option table
   @OneToOne(() => MetaOptions, (metaoption) => metaoption.post, {
     cascade: true,
-    eager: true,
   })
   metaOptions: MetaOptions;
 
@@ -65,7 +64,7 @@ export class Post {
   author: User;
 
   // bidirectional many to many relationship
-  @ManyToMany(() => Tag)
+  @ManyToMany(() => Tag, (tag) => tag.post)
   @JoinTable()
   tags: Tag[];
 }
