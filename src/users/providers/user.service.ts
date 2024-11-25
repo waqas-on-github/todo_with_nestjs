@@ -52,20 +52,4 @@ export class UserService {
   public async deleteUsers() {
     return await this.userRepository.delete({});
   }
-
-  public async testApi(prompt: string) {
-    const chatCompletion = await client.chatCompletion({
-      model: 'Qwen/Qwen2.5-Coder-7B-Instruct',
-      messages: [
-        {
-          role: 'user',
-          content: 'What is the capital of France?',
-        },
-      ],
-      max_tokens: 500,
-    });
-
-    console.log(chatCompletion.choices[0].message);
-    return chatCompletion.choices[0].message;
-  }
 }

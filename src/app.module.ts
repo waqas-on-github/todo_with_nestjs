@@ -11,6 +11,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { schema } from './env.schema';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthancationGuard } from './auth/guards/access_token/authancation.guard';
+import { AccessTokenGuard } from './auth/guards/access_token/access_token.guard';
+import jwtConfig from './auth/config/jwt.config';
+import { JwtModule } from '@nestjs/jwt';
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -20,6 +25,9 @@ const ENV = process.env.NODE_ENV;
     TagsModule,
     PostsModule,
     MetaOptionsModule,
+    ConfigModule.forFeature(jwtConfig),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
+
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: !ENV ? '.env' : `.env.${ENV}`,
@@ -52,6 +60,15 @@ const ENV = process.env.NODE_ENV;
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+
+    {
+      provide: APP_GUARD,
+      useClass: AuthancationGuard,
+    },
+
+    AccessTokenGuard,
+  ],
 })
 export class AppModule {}

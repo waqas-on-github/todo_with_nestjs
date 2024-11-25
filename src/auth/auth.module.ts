@@ -7,8 +7,8 @@ import { BycryptProvider } from './providers/bycrypt.provider';
 import { ConfigModule } from '@nestjs/config';
 import jwtConfig from './config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
-import { AccessTokenGuard } from './guards/access_token/access_token.guard';
-import { APP_GUARD } from '@nestjs/core';
+import { GenerateTokensProvider } from './providers/generateTokens.provider';
+import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
 
 @Module({
   imports: [
@@ -23,10 +23,8 @@ import { APP_GUARD } from '@nestjs/core';
       provide: HashingProvider,
       useClass: BycryptProvider,
     },
-    {
-      provide: APP_GUARD,
-      useClass: AccessTokenGuard,
-    },
+    GenerateTokensProvider,
+    RefreshTokensProvider,
   ],
   exports: [AuthService, HashingProvider],
 })

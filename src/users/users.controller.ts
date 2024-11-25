@@ -1,17 +1,9 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import { CreateUserDto } from './dtos/createuser.dto';
+import { Controller, Delete, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { UserService } from './providers/user.service';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/auth/decorator/public';
+import { ActiveUser } from 'src/auth/decorator/activeUser';
+import { ActiveUserData } from 'src/auth/interfaces/activeUserData.interface';
+
 @Controller('users')
 @ApiTags('Users')
 export class UsersController {
@@ -22,20 +14,14 @@ export class UsersController {
     return this.userService.findById(id);
   }
   @Get()
-  public getAllUsers() {
+  public getAllUsers(@ActiveUser() user: ActiveUserData) {
+    console.log(user.email);
+
     return this.userService.findAll();
   }
 
-  @Post()
-  public createUsers(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createUser(createUserDto);
-  }
   @Delete()
   public deleteUsers() {
     return this.userService.deleteUsers();
-  }
-  @Post('/create')
-  public testApi(@Body() prompt: string) {
-    return this.userService.testApi(prompt);
   }
 }

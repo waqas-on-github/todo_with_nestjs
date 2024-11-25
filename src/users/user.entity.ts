@@ -26,6 +26,6 @@ export class User {
   password: string;
 
   // one user can have multiple posts
-  @OneToMany(() => Post, (post) => post.author) // many posts can have only one user
+  @OneToMany(() => Post, (post) => post.author, { eager: true }) // many posts can have only one user
   posts: Post[];
 }
