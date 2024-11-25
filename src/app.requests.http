@@ -11,14 +11,11 @@ GET http://localhost:3001/users/22
 
 
 
-POST http://localhost:3001/users
+POST http://localhost:3001/users/create
 Content-Type: application/json
 
 {
-   "firstName": "waqas",
-   "lastName": "ali",
-   "email": "waqddas@362186318138713sail.com",
-   "password": "1234569999" 
+   "prompt":"how to write clean code"
 }
 
 POST http://localhost:3001/posts

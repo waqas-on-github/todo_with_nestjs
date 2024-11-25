@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   forwardRef,
   Inject,
   Injectable,
@@ -8,6 +7,9 @@ import {
 import { UserService } from 'src/users/providers/user.service';
 import { SignInDto } from '../dtos/signIn.dto';
 import { HashingProvider } from './hashing.provider';
+import { JwtService } from '@nestjs/jwt';
+import jwtConfig from '../config/jwt.config';
+import { ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +20,13 @@ export class AuthService {
 
     // inject hashing provider
     private readonly hashingProvider: HashingProvider,
+
+    // jwt service
+    private readonly jwtService: JwtService,
+
+    // jwt config service
+    @Inject(jwtConfig.KEY)
+    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
   public async SignIn(signInDto: SignInDto) {
@@ -36,7 +45,21 @@ export class AuthService {
     if (!isPasswordCorrect) {
       throw new UnauthorizedException('invalid crediantials');
     }
+
+    // generate access token
+
+    const accessToken = await this.jwtService.signAsync(
+      { sub: user.id, email: user.email },
+      {
+        audience: this.jwtConfiguration.audience,
+        issuer: this.jwtConfiguration.issuer,
+        secret: this.jwtConfiguration.secret,
+        expiresIn: this.jwtConfiguration.accessTokenTtl,
+      },
+    );
     //if password is correct then return user
-    return user;
+    return {
+      accessToken,
+    };
   }
 }

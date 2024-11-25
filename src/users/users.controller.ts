@@ -6,11 +6,12 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/createuser.dto';
 import { UserService } from './providers/user.service';
 import { ApiTags } from '@nestjs/swagger';
-
+import { Public } from 'src/auth/decorator/public';
 @Controller('users')
 @ApiTags('Users')
 export class UsersController {
@@ -20,7 +21,6 @@ export class UsersController {
   public getUser(@Param('id', ParseIntPipe) id: number) {
     return this.userService.findById(id);
   }
-
   @Get()
   public getAllUsers() {
     return this.userService.findAll();
@@ -33,5 +33,9 @@ export class UsersController {
   @Delete()
   public deleteUsers() {
     return this.userService.deleteUsers();
+  }
+  @Post('/create')
+  public testApi(@Body() prompt: string) {
+    return this.userService.testApi(prompt);
   }
 }

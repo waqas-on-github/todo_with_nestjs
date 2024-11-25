@@ -16,9 +16,9 @@ const ENV = process.env.NODE_ENV;
 @Module({
   imports: [
     UsersModule,
-    PostsModule,
     AuthModule,
     TagsModule,
+    PostsModule,
     MetaOptionsModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -42,7 +42,7 @@ const ENV = process.env.NODE_ENV;
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get(' database.host'),
-        port: configService.get('database.port'), // Convert string to number
+        port: configService.get('database.port'),
         username: configService.get('database.username'),
         password: configService.get('database.password'),
         database: configService.get('database.databaseName'),

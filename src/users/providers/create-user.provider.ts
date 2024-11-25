@@ -3,6 +3,7 @@ import {
   forwardRef,
   Inject,
   Injectable,
+  RequestTimeoutException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../user.entity';
@@ -24,10 +25,16 @@ export class CreateUserProvider {
   ) {}
 
   public async createUser(createUserDto: CreateUserDto) {
+    let existingUser = undefined;
     //check user exists or not
-    const existingUser = await this.userRepository.findOne({
-      where: { email: createUserDto.email },
-    });
+    try {
+      existingUser = await this.userRepository.findOne({
+        where: { email: createUserDto.email },
+      });
+    } catch (error) {
+      throw new RequestTimeoutException();
+    }
+
     if (existingUser) {
       throw new BadRequestException('User already exists');
     }
@@ -37,10 +44,17 @@ export class CreateUserProvider {
       createUserDto.password,
     );
 
-    console.log(createUserDto);
-
     let newUser = this.userRepository.create(createUserDto);
-    await this.userRepository.save(newUser);
+    try {
+      newUser = await this.userRepository.save(newUser);
+    } catch (error) {
+      throw new BadRequestException(
+        'unable to process request at the moment please try again later ',
+        {
+          description: 'Error connecting db ',
+        },
+      );
+    }
 
     return newUser;
   }
