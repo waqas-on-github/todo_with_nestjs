@@ -30,7 +30,7 @@ export class AuthController {
     return this.userService.createUser(createUserDto);
   }
 
-  @Post('refresh-tokens')
+  @Post('refresh-token')
   @HttpCode(HttpStatus.OK)
   public async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
     return this.authService.refreshTokens(refreshTokenDto);

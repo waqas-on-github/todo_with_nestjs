@@ -35,7 +35,7 @@ export class GenerateTokensProvider {
       this.singToken<Partial<ActiveUserData>>(
         user.id,
         this.jwtConfiguration.accessTokenTtl,
-        { email: user.email },
+        { email: user.email, role: user.role },
       ),
       this.singToken(user.id, this.jwtConfiguration.refreshTokenTtl),
     ]);

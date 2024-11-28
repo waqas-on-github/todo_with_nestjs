@@ -40,7 +40,11 @@ export class AccessTokenGuard implements CanActivate {
       );
       // set user property in request
 
-      request['user'] = { email: payload.email, id: payload.sub };
+      request['user'] = {
+        email: payload.email,
+        id: payload.sub,
+        role: payload.role,
+      };
     } catch (error) {
       throw new UnauthorizedException();
     }

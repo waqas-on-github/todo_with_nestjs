@@ -9,7 +9,6 @@ import {
   IsString,
   IsUrl,
   Matches,
-  maxLength,
   MaxLength,
   MinLength,
   ValidateNested,

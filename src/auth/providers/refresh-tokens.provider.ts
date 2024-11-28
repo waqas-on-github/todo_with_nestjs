@@ -40,9 +40,7 @@ export class RefreshTokensProvider {
 
       // find user form db by user id you get from refresh token payload
       const user = await this.userService.findById(payload.sub);
-
       // generate new access and refresh tokens
-
       return await this.generateTokensProvider.generateTokens(user);
     } catch (error) {
       throw new UnauthorizedException(error);

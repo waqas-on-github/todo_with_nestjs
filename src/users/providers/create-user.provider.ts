@@ -48,6 +48,8 @@ export class CreateUserProvider {
     try {
       newUser = await this.userRepository.save(newUser);
     } catch (error) {
+      console.log(error);
+
       throw new BadRequestException(
         'unable to process request at the moment please try again later ',
         {
